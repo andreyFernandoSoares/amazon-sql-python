@@ -3,13 +3,13 @@ import json
 
 sqs_client = boto3.client("sqs", region_name="us-east-1")
 
-queue_name = 'cinema-queue'
+queue_name = 'movie'
 
 def get_queue():
     queue = sqs_client.get_queue_url(QueueName=queue_name)
     return queue["QueueUrl"]
 
-def send_message():
+def lambda_handler(event, context):
     queue = get_queue()
 
     message = {"1": "Alto filmao hoje"}
@@ -20,6 +20,3 @@ def send_message():
     )
 
     print(response)
-
-if __name__ == '__main__':
-    send_message()
